@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mohd Faisal — Frontend Developer</title>
+  <meta name="description" content="Mohd Faisal — Frontend Developer building interfaces with precision & motion. React, TypeScript & JavaScript specialist with ~2 years of experience." />
+  <meta property="og:title" content="Mohd Faisal — Frontend Developer" />
+  <meta property="og:description" content="Building interfaces with precision & motion. React, TypeScript & JavaScript." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #090b11;
+      --bg-soft: #0e111a;
+      --panel: #11151f;
+      --panel-2: #141926;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.14);
+      --text: #e8ecf5;
+      --text-dim: #9aa4bd;
+      --text-faint: #616b85;
+      --indigo: #6e7bff;
+      --teal: #00e5c7;
+      --grad: linear-gradient(120deg, #6e7bff 0%, #00e5c7 100%);
+      --glow-indigo: rgba(110, 123, 255, 0.35);
+      --glow-teal: rgba(0, 229, 199, 0.28);
+      --font-head: "Space Grotesk", system-ui, sans-serif;
+      --font-body: "Inter", system-ui, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--indigo); color: #fff; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--teal);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 26px; height: 1px;
+      background: var(--teal);
+      opacity: 0.6;
+    }
+
+    h1, h2, h3 { font-family: var(--font-head); font-weight: 600; line-height: 1.1; }
+
+    .gradient-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .container {
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+    }
+
+    section { position: relative; padding: 7rem 0; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem clamp(1.2rem, 4vw, 3rem);
+      transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease, padding 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(9, 11, 17, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding-top: 0.85rem;
+      padding-bottom: 0.85rem;
+    }
+    .brand {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.01em;
+    }
+    .brand span { color: var(--teal); }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+      transition: color 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      color: var(--text) !important;
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+    .nav-cta:hover { border-color: var(--teal); background: rgba(0,229,199,0.08); }
+    @media (max-width: 720px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+    /* ===== HERO ===== */
+    #hero { padding: 0; min-height: 100vh; display: flex; align-items: center; }
+    #three-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 45%, transparent 40%, var(--bg) 100%);
+      z-index: 1; pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-content h1 {
+      font-size: clamp(2.6rem, 7vw, 5.2rem);
+      font-weight: 700;
+      margin: 1.4rem 0 0.4rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-tagline {
+      font-family: var(--font-head);
+      font-size: clamp(1.2rem, 3vw, 1.9rem);
+      font-weight: 400;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+    }
+    .hero-intro {
+      max-width: 540px;
+      color: var(--text-dim);
+      font-size: 1.02rem;
+      margin-bottom: 2.4rem;
+    }
+    .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      padding: 0.85rem 1.6rem;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 1px solid var(--border-strong);
+      transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary {
+      background: var(--grad);
+      color: #06121a;
+      font-weight: 500;
+      border: none;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px -8px var(--glow-teal); }
+    .btn-ghost { background: transparent; color: var(--text); }
+    .btn-ghost:hover { border-color: var(--teal); background: rgba(0,229,199,0.06); transform: translateY(-2px); }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.2rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+    }
+    .mouse {
+      width: 22px; height: 36px;
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      position: relative;
+    }
+    .mouse::after {
+      content: "";
+      position: absolute; top: 7px; left: 50%;
+      width: 3px; height: 7px; border-radius: 2px;
+      background: var(--teal);
+      transform: translateX(-50%);
+      animation: scrollDot 1.6s ease-in-out infinite;
+    }
+    @keyframes scrollDot { 0%{opacity:0;transform:translate(-50%,0)} 40%{opacity:1} 80%{opacity:0;transform:translate(-50%,10px)} }
+
+    /* content layered above the fixed canvas */
+    .layer { position: relative; z-index: 2; background: var(--bg); }
+
+    /* ===== SECTION HEADINGS ===== */
+    .section-head { margin-bottom: 3.2rem; }
+    .section-head h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-top: 0.9rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* ===== ABOUT ===== */
+    .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3.5rem; align-items: start; }
+    .about-bio p { color: var(--text-dim); font-size: 1.05rem; margin-bottom: 1.1rem; }
+    .about-bio strong { color: var(--text); font-weight: 500; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .stat-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .stat-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+    .stat-num { font-family: var(--font-head); font-size: 2.4rem; font-weight: 700; }
+    .stat-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--text-faint); text-transform: uppercase; margin-top: 0.3rem; }
+    @media (max-width: 800px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    /* ===== SKILLS ===== */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+    .skill-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.6rem;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .skill-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+    .skill-card h3 { font-size: 1.05rem; margin-bottom: 1.1rem; display: flex; align-items: center; gap: 0.6rem; }
+    .skill-card h3::before { content:""; width: 8px; height: 8px; border-radius: 50%; background: var(--grad); }
+    .pills { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+    .pill {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      padding: 0.42rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      background: var(--bg-soft);
+      transition: color 0.25s ease, border-color 0.25s ease;
+    }
+    .pill:hover { color: var(--teal); border-color: rgba(0,229,199,0.4); }
+
+    /* ===== EXPERIENCE ===== */
+    .timeline { position: relative; padding-left: 2.4rem; }
+    .timeline::before {
+      content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px;
+      width: 1px; background: linear-gradient(var(--indigo), var(--teal), transparent);
+    }
+    .tl-item { position: relative; padding-bottom: 3rem; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot {
+      position: absolute; left: -2.4rem; top: 4px;
+      width: 15px; height: 15px; border-radius: 50%;
+      background: var(--bg); border: 2px solid var(--teal);
+      box-shadow: 0 0 0 4px rgba(0,229,199,0.12), 0 0 18px 2px var(--glow-teal);
+    }
+    .tl-date { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--teal); text-transform: uppercase; }
+    .tl-role { font-family: var(--font-head); font-size: 1.25rem; font-weight: 600; margin: 0.5rem 0 0.15rem; }
+    .tl-company { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 0.9rem; }
+    .tl-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .tl-list li { color: var(--text-dim); font-size: 0.95rem; padding-left: 1.3rem; position: relative; }
+    .tl-list li::before { content: "▹"; position: absolute; left: 0; color: var(--indigo); }
+
+    /* ===== PROJECTS ===== */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.6rem; perspective: 1200px; }
+    .project-card {
+      position: relative;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.8rem;
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease, border-color 0.3s ease;
+      overflow: hidden;
+      will-change: transform;
+    }
+    .project-glow {
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity 0.3s ease;
+      background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), rgba(110,123,255,0.16), transparent 60%);
+      pointer-events: none;
+    }
+    .project-card:hover { border-color: var(--border-strong); }
+    .project-card:hover .project-glow { opacity: 1; }
+    .project-card .pc-inner { position: relative; z-index: 1; transform: translateZ(30px); }
+    .pc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .pc-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(110,123,255,0.2), rgba(0,229,199,0.15));
+      border: 1px solid var(--border-strong);
+      display: grid; place-items: center; font-family: var(--font-mono); color: var(--teal);
+    }
+    .pc-links { display: flex; gap: 0.9rem; font-family: var(--font-mono); font-size: 0.72rem; }
+    .pc-links a { color: var(--text-faint); transition: color 0.25s ease; }
+    .pc-links a:hover { color: var(--teal); }
+    .project-card h3 { font-size: 1.25rem; margin-bottom: 0.6rem; }
+    .project-card p { color: var(--text-dim); font-size: 0.94rem; margin-bottom: 1.2rem; }
+    .pc-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .pc-tags .pill { font-size: 0.68rem; padding: 0.32rem 0.65rem; }
+
+    /* ===== CONTACT ===== */
+    #contact { text-align: center; padding-bottom: 6rem; }
+    #contact h2 { font-size: clamp(2rem, 5vw, 3.4rem); margin: 1rem 0 1.1rem; }
+    #contact p { color: var(--text-dim); max-width: 480px; margin: 0 auto 2.4rem; font-size: 1.05rem; }
+    .contact-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      text-align: center;
+    }
+    footer p { font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-faint); }
+
+    /* ===== REVEAL ===== */
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1); }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto !important; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+      .mouse::after { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="three-canvas"></canvas>
+
+  <nav id="nav">
+    <a href="#hero" class="brand">Mohd<span>Faisal</span></a>
+    <div class="nav-links">
+      <a href="#about">01 / About</a>
+      <a href="#skills">02 / Skills</a>
+      <a href="#experience">03 / Experience</a>
+      <a href="#projects">04 / Work</a>
+      <a href="#contact" class="nav-cta">Get in touch</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <span class="eyebrow">Frontend Developer · React Specialist</span>
+      <h1>Mohd <span class="gradient-text">Faisal</span></h1>
+      <p class="hero-tagline">Building interfaces with precision &amp; motion.</p>
+      <p class="hero-intro">
+        A frontend developer with ~2 years of experience crafting fast, accessible and
+        delightful web apps with React, TypeScript and JavaScript.
+      </p>
+      <div class="btn-row">
+        <a href="#projects" class="btn btn-primary">View Work →</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="mouse"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <div class="layer">
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">01 — About</span>
+          <h2>Turning complex problems into clean, human interfaces.</h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-bio reveal">
+            <p>
+              I'm <strong>Mohd Faisal</strong>, a frontend developer focused on building
+              performant, motion-rich user interfaces. Over the past couple of years I've
+              shipped production React applications, wrangled complex state with Redux, and
+              obsessed over the small details that make products feel <strong>premium</strong>.
+            </p>
+            <p>
+              I care deeply about component architecture, type safety with TypeScript, and
+              writing code that scales with the team. When I'm not building, I'm exploring
+              creative coding, 3D on the web, and interaction design.
+            </p>
+          </div>
+          <div class="stats reveal">
+            <div class="stat-card"><div class="stat-num gradient-text">2+</div><div class="stat-label">Years Experience</div></div>
+            <div class="stat-card"><div class="stat-num gradient-text">10+</div><div class="stat-label">Apps Shipped</div></div>
+            <div class="stat-card"><div class="stat-num gradient-text">150+</div><div class="stat-label">Components Built</div></div>
+            <div class="stat-card"><div class="stat-num gradient-text">∞</div><div class="stat-label">Pixels Perfected</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">02 — Skills</span>
+          <h2>The stack I build with.</h2>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card reveal">
+            <h3>Languages</h3>
+            <div class="pills">
+              <span class="pill">JavaScript</span><span class="pill">TypeScript</span>
+              <span class="pill">HTML5</span><span class="pill">CSS3</span>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <h3>Frontend</h3>
+            <div class="pills">
+              <span class="pill">React.js</span><span class="pill">Redux</span>
+              <span class="pill">Next.js</span><span class="pill">Tailwind CSS</span>
+              <span class="pill">Framer Motion</span><span class="pill">Three.js</span>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <h3>Backend &amp; Data</h3>
+            <div class="pills">
+              <span class="pill">REST API</span><span class="pill">Node.js</span>
+              <span class="pill">Firebase</span><span class="pill">GraphQL</span>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <h3>Tools</h3>
+            <div class="pills">
+              <span class="pill">Git</span><span class="pill">Vite</span>
+              <span class="pill">Webpack</span><span class="pill">Figma</span>
+              <span class="pill">Jest</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">03 — Experience</span>
+          <h2>Where I've been building.</h2>
+        </div>
+        <div class="timeline">
+          <div class="tl-item reveal">
+            <div class="tl-dot"></div>
+            <div class="tl-date">2024 — Present</div>
+            <div class="tl-role">Frontend Developer</div>
+            <div class="tl-company">TechForge Solutions</div>
+            <ul class="tl-list">
+              <li>Led development of a React + TypeScript dashboard used by 10k+ users daily.</li>
+              <li>Cut initial load time by 40% through code-splitting and memoization.</li>
+              <li>Built a reusable component library adopted across 4 product teams.</li>
+            </ul>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-dot"></div>
+            <div class="tl-date">2023 — 2024</div>
+            <div class="tl-role">Junior Frontend Developer</div>
+            <div class="tl-company">Nova Digital</div>
+            <ul class="tl-list">
+              <li>Delivered responsive React interfaces from Figma designs pixel-perfectly.</li>
+              <li>Integrated REST APIs and managed global state with Redux Toolkit.</li>
+              <li>Collaborated with backend teams to define clean API contracts.</li>
+            </ul>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-dot"></div>
+            <div class="tl-date">2023</div>
+            <div class="tl-role">Frontend Intern</div>
+            <div class="tl-company">Freelance / Open Source</div>
+            <ul class="tl-list">
+              <li>Shipped multiple client landing pages with JavaScript and modern CSS.</li>
+              <li>Contributed bug fixes and UI improvements to open-source React projects.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">04 — Selected Work</span>
+          <h2>Things I've designed &amp; shipped.</h2>
+        </div>
+        <div class="projects-grid" id="projects-grid">
+          <!-- cards injected via JS for tilt binding, but static fallback below -->
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <span class="eyebrow" style="justify-content:center;">05 — Contact</span>
+        <h2>Let's build something <span class="gradient-text">great</span>.</h2>
+        <p>Open to frontend roles and freelance collaborations. Drop a line — I usually reply within a day.</p>
+        <div class="contact-btns">
+          <a href="mailto:faisal@example.com" class="btn btn-primary">✉ faisal@example.com</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+          <a href="https://github.com" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>© 2026 Mohd Faisal · Designed &amp; built with precision.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ---------- PROJECTS DATA + TILT ---------- */
+    const projects = [
+      { icon:"01", title:"Nebula Dashboard", desc:"A real-time analytics dashboard with live charts, dark theme and role-based views.", tags:["React","TypeScript","Redux","REST API"], live:"#", git:"#" },
+      { icon:"02", title:"Orbit UI Kit", desc:"A component library with 60+ accessible, themeable React components and docs.", tags:["React","TypeScript","Storybook"], live:"#", git:"#" },
+      { icon:"03", title:"Pulse Commerce", desc:"A performant storefront with cart, checkout and Stripe payments integration.", tags:["Next.js","JavaScript","REST API"], live:"#", git:"#" },
+      { icon:"04", title:"Motion Lab", desc:"An interactive playground exploring 3D and scroll-driven web animations.", tags:["Three.js","GSAP","React"], live:"#", git:"#" },
+    ];
+
+    const grid = document.getElementById("projects-grid");
+    projects.forEach((p) => {
+      const card = document.createElement("article");
+      card.className = "project-card reveal";
+      card.innerHTML = `
+        <div class="project-glow"></div>
+        <div class="pc-inner">
+          <div class="pc-top">
+            <div class="pc-icon">${p.icon}</div>
+            <div class="pc-links">
+              <a href="${p.live}" target="_blank" rel="noopener">Live ↗</a>
+              <a href="${p.git}" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+          <h3>${p.title}</h3>
+          <p>${p.desc}</p>
+          <div class="pc-tags">${p.tags.map(t=>`<span class="pill">${t}</span>`).join("")}</div>
+        </div>`;
+      grid.appendChild(card);
+
+      if (!reduceMotion) {
+        card.addEventListener("mousemove", (e) => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width;
+          const y = (e.clientY - r.top) / r.height;
+          const rotY = (x - 0.5) * 14;
+          const rotX = (0.5 - y) * 14;
+          card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
+          card.style.setProperty("--mx", `${x * 100}%`);
+          card.style.setProperty("--my", `${y * 100}%`);
+        });
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = "";
+        });
+      }
+    });
+
+    /* ---------- NAV SCROLL ---------- */
+    const nav = document.getElementById("nav");
+    const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    /* ---------- REVEAL ---------- */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+    /* ---------- THREE.JS HERO SCENE ---------- */
+    (function initThree() {
+      const canvas = document.getElementById("three-canvas");
+      if (!window.THREE) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.set(0, 0, 7);
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const group = new THREE.Group();
+      scene.add(group);
+
+      const INDIGO = 0x6e7bff, TEAL = 0x00e5c7;
+
+      // Core icosahedron wireframe
+      const coreGeo = new THREE.IcosahedronGeometry(1.7, 1);
+      const core = new THREE.LineSegments(
+        new THREE.EdgesGeometry(coreGeo),
+        new THREE.LineBasicMaterial({ color: TEAL, transparent: true, opacity: 0.55 })
+      );
+      group.add(core);
+
+      const coreGlow = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(1.68, 1),
+        new THREE.MeshBasicMaterial({ color: INDIGO, transparent: true, opacity: 0.06 })
+      );
+      group.add(coreGlow);
+
+      // Orbiting nodes
+      const techs = ["React", "TypeScript", "JavaScript", "REST API", "Redux"];
+      const nodes = [];
+      const lineMat = new THREE.LineBasicMaterial({ color: INDIGO, transparent: true, opacity: 0.22 });
+
+      function makeLabel(text) {
+        const c = document.createElement("canvas");
+        c.width = 256; c.height = 64;
+        const ctx = c.getContext("2d");
+        ctx.font = "500 30px 'JetBrains Mono', monospace";
+        ctx.fillStyle = "#cfe9ff";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(text, 128, 34);
+        const tex = new THREE.CanvasTexture(c);
+        tex.minFilter = THREE.LinearFilter;
+        const spr = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.9 }));
+        spr.scale.set(1.7, 0.42, 1);
+        return spr;
+      }
+
+      techs.forEach((t, i) => {
+        const angle = (i / techs.length) * Math.PI * 2;
+        const radius = 3.6;
+        const yOff = (Math.random() - 0.5) * 1.6;
+        const node = new THREE.Mesh(
+          new THREE.SphereGeometry(0.12, 16, 16),
+          new THREE.MeshBasicMaterial({ color: TEAL })
+        );
+        const base = new THREE.Vector3(Math.cos(angle) * radius, yOff, Math.sin(angle) * radius);
+        node.position.copy(base);
+
+        const label = makeLabel(t);
+        label.position.copy(base).add(new THREE.Vector3(0, 0.42, 0));
+
+        const geom = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), base]);
+        const line = new THREE.Line(geom, lineMat.clone());
+
+        group.add(node); group.add(label); group.add(line);
+        nodes.push({ node, label, line, angle, radius, yOff, speed: 0.15 + Math.random() * 0.15 });
+      });
+
+      // Starfield
+      const starCount = 900;
+      const starPos = new Float32Array(starCount * 3);
+      for (let i = 0; i < starCount; i++) {
+        starPos[i*3]   = (Math.random() - 0.5) * 60;
+        starPos[i*3+1] = (Math.random() - 0.5) * 60;
+        starPos[i*3+2] = (Math.random() - 0.5) * 60 - 10;
+      }
+      const starGeo = new THREE.BufferGeometry();
+      starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
+      const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xaab4d4, size: 0.06, transparent: true, opacity: 0.7 }));
+      scene.add(stars);
+
+      // Mouse parallax
+      const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+      if (!reduceMotion) {
+        window.addEventListener("mousemove", (e) => {
+          mouse.tx = (e.clientX / window.innerWidth - 0.5);
+          mouse.ty = (e.clientY / window.innerHeight - 0.5);
+        }, { passive: true });
+      }
+
+      let scrollProgress = 0;
+      window.addEventListener("scroll", () => {
+        const max = window.innerHeight;
+        scrollProgress = Math.min(window.scrollY / max, 1);
+      }, { passive: true });
+
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        const t = clock.getElapsedTime();
+
+        if (!reduceMotion) {
+          group.rotation.y = t * 0.12;
+          core.rotation.x = t * 0.18;
+          core.rotation.y = t * 0.1;
+          coreGlow.rotation.copy(core.rotation);
+          stars.rotation.y = t * 0.01;
+
+          nodes.forEach((n) => {
+            const a = n.angle + t * n.speed;
+            const x = Math.cos(a) * n.radius;
+            const z = Math.sin(a) * n.radius;
+            const y = n.yOff + Math.sin(t * 0.6 + n.angle) * 0.25;
+            n.node.position.set(x, y, z);
+            n.label.position.set(x, y + 0.42, z);
+            n.line.geometry.setFromPoints([new THREE.Vector3(0,0,0), new THREE.Vector3(x, y, z)]);
+          });
+
+          mouse.x += (mouse.tx - mouse.x) * 0.05;
+          mouse.y += (mouse.ty - mouse.y) * 0.05;
+          group.rotation.z = mouse.x * 0.25;
+          group.rotation.x = mouse.y * 0.3;
+        }
+
+        // camera dolly forward on scroll
+        camera.position.z = 7 - scrollProgress * 2.4;
+        camera.position.y = scrollProgress * 0.6;
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    })();
+  </script>
+</body>
+</html>
